@@ -52,6 +52,7 @@ namespace Assets.Scripts.Enemy
 
         public void MoveTo(List<TileInfo> path)
         {
+
             StartCoroutine(MoveAlongPath(path));
         }
     }

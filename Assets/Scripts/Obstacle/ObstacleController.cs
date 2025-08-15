@@ -22,7 +22,7 @@ public class ObstacleController : MonoBehaviour
             {
                 int index = x * gridSize + y;
                 TileInfo tile = gridController.GeTileInfo(x, y);
-                if (obstacleData.blockedTiles[index])
+                if (obstacleData.blockedTiles[index] && !tile.IsOccupied)
                 {
                     GameObject obj = Instantiate(obstaclePrebab, tile.transform);
                     tile.SetIsWalkable(false);

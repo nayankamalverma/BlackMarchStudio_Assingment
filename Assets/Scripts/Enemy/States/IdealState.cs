@@ -13,7 +13,7 @@ namespace Assets.Scripts.Enemy.States
 
         public override void Update()
         {
-            if (controller.PlayerController.IsMoving())
+            if (!controller.PlayerController.isPlayersTurn && !controller.PlayerController.IsMoving())
             {
                 controller.ChangeState(EnemyState.Chase);
             }

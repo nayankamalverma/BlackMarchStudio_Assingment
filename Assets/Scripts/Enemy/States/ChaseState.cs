@@ -13,16 +13,17 @@ namespace Assets.Scripts.Enemy
             //controller.PlayerController;
             List<TileInfo> tiles = controller.PlayerController.adjacentTile;
             Vector2Int targetPos = new Vector2Int();
-            foreach (TileInfo tile in tiles)
+            List<TileInfo> path = new List<TileInfo>();
+            for (int i = 0; i < tiles.Count ; i++)
             {
-                if (tile.IsWalkable)
+                if (tiles[i].IsWalkable)
                 {
-                    targetPos.x = tile.X;
-                    targetPos.y = tile.Y;
-                    break;
+                    targetPos.x = tiles[i].X;
+                    targetPos.y = tiles[i].Y;
+                    path = controller.FindTilePath(controller.CurrentPos, targetPos);
+                    if(path!=null)break;
                 }
             }
-            List<TileInfo> path = controller.FindTilePath(controller.CurrentPos,targetPos);
             controller.MoveTo(path);
         }
 
@@ -31,6 +32,7 @@ namespace Assets.Scripts.Enemy
             if (!controller.IsMoving)
             {
                 controller.ChangeState(EnemyState.Ideal);
+                controller.PlayerController.SetIsPlayersTurn(true);
             }
         }
     }

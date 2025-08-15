@@ -9,6 +9,8 @@ public class PlayerController : IAI
     [SerializeField] private TextMeshProUGUI coordinateText;
     [SerializeField] private LayerMask tileLayerMask;
 
+    public bool isPlayersTurn { get; private set; } = true;
+    private bool pathFound = false;
     public List<TileInfo> adjacentTile { get; private set; } = new List<TileInfo>();
     private Camera mainCamera;
 
@@ -29,6 +31,7 @@ public class PlayerController : IAI
 
     private void Update()
     {
+        if (!isPlayersTurn) return;
         HandleMouseInput();
     }
 
@@ -46,9 +49,10 @@ public class PlayerController : IAI
                 // Update UI text with the cube coordinates
 
                 FindPath(cubeInfo);
-                if (Input.GetMouseButton(0)){
+                if (Input.GetMouseButton(0) && pathFound){
                     StartCoroutine(MoveAlongPath(currentPath));
                     FindAdjacentTile(cubeInfo);
+                    isPlayersTurn = false;
                 }
                 return;
             } 
@@ -69,11 +73,12 @@ public class PlayerController : IAI
         if (!targetTile.IsWalkable) return;
         List<TileInfo> path = FindMovePath(currentPos, new Vector2Int(targetTile.X, targetTile.Y));
 
+
         if (path != null && path.Count > 0)
         {
             ClearCurrentPath();
             currentPath = path;
-
+            pathFound = true;
             if (showPathVisually)
             {
                 ShowPath(path);
@@ -83,10 +88,16 @@ public class PlayerController : IAI
         }
         else
         {
+            pathFound = false;
             ClearCurrentPath();
             coordinateText.text = "Grid Position: ("+targetTile.X+","+ targetTile.Y+") \n No path found";
         }
     }
     public bool IsMoving() => isMoving;
     public Vector2Int GetCurrentPos() => currentPos;
+
+    public void SetIsPlayersTurn(bool turn)
+    {
+        isPlayersTurn = turn;
+    }
 }
