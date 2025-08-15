@@ -511,6 +511,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -1656749011731219312, guid: 1c5f1b7bc27bd4148b38c23ff2274a03, type: 3}
+      propertyPath: moveSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -1656749011731219312, guid: 1c5f1b7bc27bd4148b38c23ff2274a03, type: 3}
       propertyPath: gridController
       value: 
       objectReference: {fileID: 70458761}
@@ -605,7 +609,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 37.599, y: 0}
+  m_AnchoredPosition: {x: 37.598877, y: 0}
   m_SizeDelta: {x: 298.9512, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1390845161
